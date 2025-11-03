@@ -1,0 +1,139 @@
+{
+  "info": {
+    "name": "Eanel MQL5 API",
+    "description": "API REST para integración con MQL5/MetaTrader 5",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Validate License",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"licenseKey\": \"{{license_key}}\",\n  \"deviceId\": \"{{device_id}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/validate-license",
+          "host": ["{{base_url}}"],
+          "path": ["validate-license"]
+        },
+        "description": "Valida una licencia y activa un dispositivo"
+      }
+    },
+    {
+      "name": "2. Check License",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/check-license?key={{license_key}}",
+          "host": ["{{base_url}}"],
+          "path": ["check-license"],
+          "query": [
+            {
+              "key": "key",
+              "value": "{{license_key}}"
+            }
+          ]
+        },
+        "description": "Verifica el estado de una licencia sin activarla"
+      }
+    },
+    {
+      "name": "3. Log Trade",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"licenseKey\": \"{{license_key}}\",\n  \"symbol\": \"EURUSD\",\n  \"action\": \"BUY\",\n  \"lots\": 0.01,\n  \"price\": 1.1234,\n  \"stopLoss\": 1.1200,\n  \"takeProfit\": 1.1300,\n  \"orderId\": \"12345678\",\n  \"profit\": 10.50\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/log-trade",
+          "host": ["{{base_url}}"],
+          "path": ["log-trade"]
+        },
+        "description": "Registra una operación de trading"
+      }
+    },
+    {
+      "name": "4. Get Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/get-stats?key={{license_key}}&limit=100",
+          "host": ["{{base_url}}"],
+          "path": ["get-stats"],
+          "query": [
+            {
+              "key": "key",
+              "value": "{{license_key}}"
+            },
+            {
+              "key": "limit",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Obtiene estadísticas y operaciones recientes"
+      }
+    },
+    {
+      "name": "5. Update Status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"licenseKey\": \"{{license_key}}\",\n  \"deviceId\": \"{{device_id}}\",\n  \"status\": \"trading\",\n  \"message\": \"EA running normally\",\n  \"accountNumber\": \"12345678\",\n  \"accountName\": \"Demo Account\",\n  \"balance\": 10000.00,\n  \"equity\": 10050.00\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/update-status",
+          "host": ["{{base_url}}"],
+          "path": ["update-status"]
+        },
+        "description": "Actualiza el estado del EA y la información de la cuenta"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api/mql5",
+      "type": "string"
+    },
+    {
+      "key": "base_url_prod",
+      "value": "https://eanel-server.vercel.app/api/mql5",
+      "type": "string"
+    },
+    {
+      "key": "license_key",
+      "value": "XXXX-XXXX-XXXX-XXXX",
+      "type": "string"
+    },
+    {
+      "key": "device_id",
+      "value": "TEST-DEVICE-001",
+      "type": "string"
+    }
+  ]
+}

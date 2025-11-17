@@ -83,9 +83,9 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const message = error instanceof Error ? error.message : 'Internal server error';
+    // No exponer detalles técnicos en producción
     return NextResponse.json(
-      { error: message },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
